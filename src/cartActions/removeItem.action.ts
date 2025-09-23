@@ -1,0 +1,23 @@
+// cartActions/removeItem.action.ts
+"use server";
+
+import getMyToken from "@/app/getMyToken/getMyToken";
+
+export default async function removeItem(productId: string) {
+const token = await getMyToken();
+if (!token) throw new Error("User not authenticated");
+
+const res = await fetch(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
+method: "DELETE",
+headers: {
+    token: String(token) ,
+    "Content-type" : "application/json"// ✅ بقيت من session.token
+},
+});
+
+if (!res.ok) {
+throw new Error("Failed to remove item from cart");
+}
+
+return res.json();
+}

@@ -1,0 +1,24 @@
+<script>start("c:\\Users\\Access\\Desktop\\route\\images\\Icons\\");</script>
+<script>onHasParentDirectory();</script>
+<script>addRow("accept.png","accept.png",0,32720,"32.0 kB",1660039069,"8/9/22, 11:57:49 AM");</script>
+<script>addRow("address.png","address.png",0,14610,"14.3 kB",1745189259,"4/21/25, 12:47:39 AM");</script>
+<script>addRow("arrow.png","arrow.png",0,32336,"31.6 kB",1660056526,"8/9/22, 4:48:46 PM");</script>
+<script>addRow("earth.png","earth.png",0,50769,"49.6 kB",1660057237,"8/9/22, 5:00:37 PM");</script>
+<script>addRow("email-solid.png","email-solid.png",0,33782,"33.0 kB",1660057350,"8/9/22, 5:02:30 PM");</script>
+<script>addRow("email.png","email.png",0,41491,"40.5 kB",1660049780,"8/9/22, 2:56:20 PM");</script>
+<script>addRow("facebook.png","facebook.png",0,27161,"26.5 kB",1660057400,"8/9/22, 5:03:20 PM");</script>
+<script>addRow("google.png","google.png",0,36855,"36.0 kB",1660057453,"8/9/22, 5:04:13 PM");</script>
+<script>addRow("headphone.png","headphone.png",0,41980,"41.0 kB",1660049645,"8/9/22, 2:54:05 PM");</script>
+<script>addRow("heart.png","heart.png",0,36432,"35.6 kB",1660039146,"8/9/22, 11:59:06 AM");</script>
+<script>addRow("leaf.png","leaf.png",0,45292,"44.2 kB",1660039241,"8/9/22, 12:00:41 PM");</script>
+<script>addRow("linkedin.png","linkedin.png",0,30094,"29.4 kB",1660057509,"8/9/22, 5:05:09 PM");</script>
+<script>addRow("location.png","location.png",0,37878,"37.0 kB",1660057605,"8/9/22, 5:06:45 PM");</script>
+<script>addRow("map.png","map.png",0,33094,"32.3 kB",1660049339,"8/9/22, 2:48:59 PM");</script>
+<script>addRow("moon.png","moon.png",0,11639,"11.4 kB",1744654269,"4/14/25, 8:11:09 PM");</script>
+<script>addRow("people.png","people.png",0,42154,"41.2 kB",1660039292,"8/9/22, 12:01:32 PM");</script>
+<script>addRow("phone-gray.png","phone-gray.png",0,37840,"37.0 kB",1660057296,"8/9/22, 5:01:36 PM");</script>
+<script>addRow("phone.png","phone.png",0,36084,"35.2 kB",1660049411,"8/9/22, 2:50:11 PM");</script>
+<script>addRow("play-button (1).png","play-button%20(1).png",0,9645,"9.4 kB",1744717337,"4/15/25, 1:42:17 PM");</script>
+<script>addRow("share (1).png","share%20(1).png",0,13720,"13.4 kB",1745189390,"4/21/25, 12:49:50 AM");</script>
+<script>addRow("share.png","share.png",0,14274,"13.9 kB",1745189382,"4/21/25, 12:49:42 AM");</script>
+<script>addRow("twitter.png","twitter.png",0,38351,"37.5 kB",1660057553,"8/9/22, 5:05:53 PM");</script>
