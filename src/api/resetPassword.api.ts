@@ -22,7 +22,10 @@ throw new Error(data.message || "Failed to reset password");
 }
 
 return data;
-} catch (error: any) {
-throw new Error(error.message || "Something went wrong");
+} catch (error: unknown) {
+    if(error instanceof Error){
+        throw new Error(error.message || "Something went wrong");
+    }
+    throw new Error("Something went wrong");
 }
 }

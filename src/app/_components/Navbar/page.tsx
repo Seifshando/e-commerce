@@ -4,13 +4,17 @@ import Link from "next/link";
 import React, { useContext,useState } from "react";
 import { CartContext, CartContextType } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
-import getMyToken from "@/app/getMyToken/getMyToken";
+// import { useSession } from "next-auth/react";
 
 export default function Navbar() {
   const router = useRouter();
   const { numberOfCartItem } = useContext<CartContextType>(CartContext);
   const [isLoggedIn, setisLoggedIn] = useState(true)  
   const [userName, setUserName] = useState<string | null>(null);
+  // const {data: session, status} = useSession()
+  // console.log(session);
+  // console.log(status);
+  
   // const [token, settoken] = useState("");
 
 

@@ -1,5 +1,5 @@
 "use server"
-export default async function gertAPISubCategories(id : string){
+export default async function gertAPISubCategories(){
   const response = await fetch(`https://ecommerce.routemisr.com/api/v1/subcategories`);
   
   const {data} = await response.json();

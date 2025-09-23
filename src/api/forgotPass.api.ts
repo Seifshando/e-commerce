@@ -20,8 +20,11 @@ export default async function ForgotPass(email: string) {
     }
 
     return data;
-  } catch (error: any) {
-    // نرمي الـ error عشان نمسكه في UI
+} catch (error: unknown) {
+  if (error instanceof Error) {
     throw new Error(error.message || "Something went wrong");
   }
+  throw new Error("Something went wrong");
+}
+
 }

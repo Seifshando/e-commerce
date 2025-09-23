@@ -50,8 +50,10 @@ await ForgotPass(values.email)
 setEmail(values.email)
 toast.success("Reset code sent to your email", { position: "top-center", duration: 2000 })
 setStep(2)
-} catch (error: any) {
-toast.error(error.message || "Error sending reset email", { position: "top-center", duration: 2000 })
+} catch (error: unknown) {
+    if(error instanceof Error){
+        toast.error(error.message || "Error sending reset email", { position: "top-center", duration: 2000 })
+    }
 }
 }
 
@@ -61,8 +63,10 @@ const response = await VerifyResetCode(values.resetCode)
 console.log(response)
 toast.success("Code verified successfully", { position: "top-center", duration: 2000 })
 setStep(3)
-} catch (error: any) {
-toast.error(error.message || "Invalid reset code", { position: "top-center", duration: 2000 })
+} catch (error: unknown) {
+    if(error instanceof Error){
+        toast.error(error.message || "Invalid reset code", { position: "top-center", duration: 2000 })
+    }
 }
 }
 
@@ -83,8 +87,11 @@ try {
     codeForm.reset()
     resetForm.reset()
     // }
-} catch (error: any) {
-    toast.error(error.message || "Error resetting password", { position: "top-center", duration: 2000 })
+} catch (error: unknown) {
+    if(error instanceof Error){
+        toast.error(error.message || "Error resetting password", { position: "top-center", duration: 2000 })
+
+    }
 }
 }
 

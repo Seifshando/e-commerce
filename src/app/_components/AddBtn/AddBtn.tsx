@@ -28,12 +28,14 @@ export default function AddBtn({ id }: { id: string }) {
           duration: 2000,
         });
       }
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong", {
-        position: "top-center",
-        duration: 2000,
-      });
-    } finally {
+    } catch (error: unknown) {
+    if(error instanceof Error){
+        toast.error(error.message, {
+            position: "top-center",
+            duration: 2000,
+        });
+    }
+}finally {
       setIsDisabled(false);
     }
   }

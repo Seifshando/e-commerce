@@ -1,7 +1,6 @@
 "use server";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/auth";
+
 import getMyToken from "@/app/getMyToken/getMyToken";
 
 export default async function updateCartQuantity(productId: string, count: string) {

@@ -1,37 +1,57 @@
-import React from 'react'
-import { Card, CardHeader} from "@/components/ui/card";
+import React from "react";
+import { Card, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
-import  Image  from 'next/image';
-import gertAPISubCategories from '@/api/getSubCategory.api';
+import Image from "next/image";
+import getAPISubCategories from "@/api/getSubCategory.api";
 
-export default async function SingleCategoryDetails({currentCategory}) {
+interface Category {
+  _id: string;
+  name: string;
+  image: string;
+}
 
-  const data = await gertAPISubCategories(currentCategory._id)
+interface SubCategory {
+  _id: string;
+  name: string;
+  image?: string;
+}
+
+type SingleCategoryDetailsProps = {
+  currentCategory: Category;
+};
+
+export default async function SingleCategoryDetails({
+  currentCategory,
+}: SingleCategoryDetailsProps) {
+  const data: SubCategory = await getAPISubCategories();
+
   console.log(data);
-  console.log(data);
-  
 
-
-
-  return <>
-    {/* <div className=''> */}
-        <div className="w-1/3" key={currentCategory._id}>
-            <div className='p-4'>              
-            <Card className='p-3'>
-            <Link href={`/categories/${currentCategory._id}`}> 
-            <CardHeader>
-            <Image src={currentCategory.image} alt="image for current product" width={500} height={500}/>
-            {/* <CardTitle className='text-green-600'>{currentCategory.name}</CardTitle> */}
-            </CardHeader>
+  return (
+    <>
+      <div className="w-1/3" key={currentCategory._id}>
+        <div className="p-4">
+          <Card className="p-3">
+            <Link href={`/categories/${currentCategory._id}`}>
+              <CardHeader>
+                <Image
+                  src={currentCategory.image}
+                  alt={`image for ${currentCategory.name}`}
+                  width={500}
+                  height={500}
+                />
+              </CardHeader>
             </Link>
-            {/* <AddBtn id={currentCategory._id}/> */}
-            </Card>
+          </Card>
         </div>
+      </div>
 
-    </div>
-        <span className='text-emerald-300 text-3xl text- font-bold absolute bottom-[50%] left-[50%]'>{currentCategory?.name}</span>
-        <span className='text-emerald-700 text-3xl text- absolute bottom-[40%] left-[50%]'>{data?.name}</span>
-        
-    {/* </div> */}
-  </>
+      <span className="text-emerald-300 text-3xl font-bold absolute bottom-[50%] left-[50%]">
+        {currentCategory?.name}
+      </span>
+      <span className="text-emerald-700 text-3xl absolute bottom-[40%] left-[50%]">
+        {data?.name}
+      </span>
+    </>
+  );
 }

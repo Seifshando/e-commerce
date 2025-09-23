@@ -45,9 +45,11 @@ try {
   }
 
   router.push("/"); // تحويل للصفحة الرئيسية بعد النجاح
-} catch (error: any) {
-  console.error("❌ Login error:", error);
-  setErrorMsg(error.message);
+} catch (error: unknown) {
+  if(error instanceof Error){
+    console.error("❌ Login error:", error);
+    setErrorMsg(error.message);
+  }
 }
 }
 

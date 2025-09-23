@@ -1,9 +1,9 @@
 "use server"
 
 import getMyToken from "@/app/getMyToken/getMyToken";
-import { addAddressType } from "@/schema/AddAddress.schema";
 
-export default async function AddAddress(form: addAddressType){
+
+export default async function AddAddress(){
 
     const token = await getMyToken();
     if(!token) throw new Error("Please, LogIn First.");

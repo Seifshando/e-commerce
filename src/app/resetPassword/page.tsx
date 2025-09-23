@@ -33,11 +33,13 @@ try {
     duration: 2000,
     });
     form.reset();
-} catch (error: any) {
-    toast.error(error.message, {
-    position: "top-center",
-    duration: 2000,
-    });
+} catch (error: unknown) {
+    if(error instanceof Error){
+        toast.error(error.message, {
+            position: "top-center",
+            duration: 2000,
+        });
+    }
 }
 }
 

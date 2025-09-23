@@ -3,13 +3,13 @@ import AddAddress from '@/api/addAddress.api'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { addAddress, addAddressType } from '@/schema/AddAddress.schema';
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
-export default function myAddress() {
+export default function MyAddress() {
     const router = useRouter();
 
     
@@ -30,7 +30,7 @@ export default function myAddress() {
 async function handleMyAddress(values : addAddressType){
 console.log(values);
 
-const response = await AddAddress(values);
+const response = await AddAddress();
 // setresponse(newResponse)
 console.log(response);
 toast.success("Your Address Added Successfuly✅", {position: "top-center", duration: 2000});

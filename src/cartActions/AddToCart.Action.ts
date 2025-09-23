@@ -32,11 +32,14 @@ export default async function AddToCart(id: string) {
 
     const payload = await res.json();
     return payload;
-  } catch (error: any) {
-    console.error("❌ AddToCart Error:", error);
-    return {
-      status: "error",
-      message: error.message || "Something went wrong",
-    };
+  } catch (error: unknown) {
+    if(error instanceof Error){
+
+      console.error("❌ AddToCart Error:", error);
+      return {
+        status: "error",
+        message: error.message || "Something went wrong",
+      }
+      };
   }
 }
