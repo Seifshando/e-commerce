@@ -1,7 +1,6 @@
 "use client";
 
 import ResetPass from "@/api/resetPassword.api";
-import { resetSchema, resetSchemaType } from "@/schema/verifyResetCode.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -15,24 +14,26 @@ FormItem,
 FormLabel,
 FormMessage,
 } from "@/components/ui/form";
+import { resetPasswordSchema, resetPasswordSchemaType } from "@/schema/resetPassword.schema";
 
 export default function ResetPassword() {
-const form = useForm<resetSchemaType>({
-resolver: zodResolver(resetSchema),
+const form = useForm<resetPasswordSchemaType>({
+resolver: zodResolver(resetPasswordSchema),
 defaultValues: {
-    resetCode: "",
+    email: "",
     newPassword: "",
 },
 });
 
-async function onSubmit(values: resetSchemaType) {
+async function onSubmit(values: resetPasswordSchemaType) {
 try {
-    const res = await ResetPass(values.resetCode, values.newPassword);
+    const res = await ResetPass(values.email, values.newPassword);
     toast.success(res.message || "Password reset successfully!", {
     position: "top-center",
     duration: 2000,
     });
     form.reset();
+    window.location.href = "/login"
 } catch (error: unknown) {
     if(error instanceof Error){
         toast.error(error.message, {
@@ -51,10 +52,10 @@ return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
         control={form.control}
-        name="resetCode"
+        name="email"
         render={({ field }) => (
             <FormItem>
-            <FormLabel>Reset Code</FormLabel>
+            <FormLabel>Your Email:</FormLabel>
             <FormControl>
                 <Input placeholder="Enter the code you received" {...field} />
             </FormControl>
@@ -81,7 +82,7 @@ return (
         )}
         />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full bg-blue-600">
         Reset Password
         </Button>
     </form>

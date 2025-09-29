@@ -1,27 +1,27 @@
 "use client";
 
-import ForgotPass from "@/api/forgotPass.api";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { forgotSchema, forgotSchemaType } from "@/schema/forgot.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation"; // ✅
+import VerifyResetCode from "@/api/verifyResetCode.api";
+import { resetSchema, resetSchemaType } from "@/schema/verifyResetCode.schema";
 
 export default function ForgotPassword() {
 const router = useRouter(); // ✅
-const form = useForm<forgotSchemaType>({
-resolver: zodResolver(forgotSchema),
+const form = useForm<resetSchemaType>({
+resolver: zodResolver(resetSchema),
 defaultValues: {
-    email: "",
+    resetCode: "",
 },
 });
 
-async function onSubmit(values: forgotSchemaType) {
+async function onSubmit(values: resetSchemaType) {
 try {
-    const res = await ForgotPass(values.email); // ✅ مرر string بس
+    const res = await VerifyResetCode(values.resetCode); // ✅ مرر string بس
     toast.success(res.message || "Check your email for reset code!", {
     position: "top-center",
     duration: 2000,
@@ -29,7 +29,7 @@ try {
     form.reset();
 
     // ✅ بعد النجاح روح على صفحة resetPassword
-    router.push("/verifyResetCode");
+    router.push("/resetPassword");
 } catch (error: unknown) {
     if(error instanceof Error){
         toast.error(error.message, {
@@ -48,12 +48,12 @@ return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
         control={form.control}
-        name="email"
+        name="resetCode"
         render={({ field }) => (
             <FormItem>
-            <FormLabel>Email</FormLabel>
+            <FormLabel>resetCode</FormLabel>
             <FormControl>
-                <Input placeholder="Enter your email" {...field} />
+                <Input placeholder="Enter your resetCode" {...field} />
             </FormControl>
             <FormMessage />
             </FormItem>

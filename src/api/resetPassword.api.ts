@@ -1,6 +1,6 @@
 "use server";
 
-export default async function ResetPass(resetCode: string, newPassword: string) {
+export default async function ResetPass(email: string, newPassword: string) {
 try {
 const response = await fetch(
 `https://ecommerce.routemisr.com/api/v1/auth/resetPassword`,
@@ -8,7 +8,7 @@ const response = await fetch(
 method: "PUT",
 headers: { "Content-Type": "application/json" },
 body: JSON.stringify({
-    resetCode,
+    email,
     newPassword,
 }),
 }
@@ -18,10 +18,12 @@ body: JSON.stringify({
 const data = await response.json();
 
 if (!response.ok) {
-throw new Error(data.message || "Failed to reset password");
+    throw new Error(data.message || "Failed to reset password");
 }
 
 return data;
+
+
 } catch (error: unknown) {
     if(error instanceof Error){
         throw new Error(error.message || "Something went wrong");

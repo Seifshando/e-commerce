@@ -3,36 +3,17 @@
 import Link from "next/link";
 import React, { useContext,useState } from "react";
 import { CartContext, CartContextType } from "@/context/CartContext";
-import { useRouter } from "next/navigation";
-// import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
-  const router = useRouter();
   const { numberOfCartItem } = useContext<CartContextType>(CartContext);
-  const [isLoggedIn, setisLoggedIn] = useState(true)  
-  const [userName, setUserName] = useState<string | null>(null);
-  // const {data: session, status} = useSession()
+  const {data: session, status} = useSession()
   // console.log(session);
   // console.log(status);
-  
-  // const [token, settoken] = useState("");
 
 
-  // async function getTheToken(){
-  //   const thetoken = await getMyToken()
-
-  //   settoken(thetoken)
-  // }
-
-  function logOut() {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("user_name");
-      document.cookie = "auth_token=; path=/; max-age=0"; // حذف الكوكي
-      setUserName(null);
-      setisLoggedIn(false);
-    }
-    router.push("/login");
-
+  function logOut(){
+    signOut({callbackUrl : "/login"})
   }
 
 
@@ -47,8 +28,8 @@ export default function Navbar() {
               </Link>
             </li>
             <li><Link href="/">Home</Link></li>
-            {isLoggedIn && <li><Link href="/wishList">WishList</Link></li>}
-            {isLoggedIn && (
+            {session && <li><Link href="/wishList">WishList</Link></li>}
+            {session && (
               <li className="relative">
                 <Link href="/cart">
                   Cart{" "}
@@ -72,14 +53,14 @@ export default function Navbar() {
 
         <div className="right">
           <ul className="flex gap-3 items-center">
-          {isLoggedIn ? (
+          {session ? (
             <>
               <li>
                 <span onClick={logOut} className="cursor-pointer">
                   Signout
                 </span>
               </li>
-              <span className="text-blue-300">Welcome, {userName}</span>
+              <span className="text-blue-300">Welcome, {session?.user?.name}</span>
             </>
           ) : (
             <>
