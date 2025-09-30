@@ -22,6 +22,6 @@ else{
 
 }
 export const config = {
-matcher : ["/cart", "/login", "/register", "/wishList", "/addAddress"]
+matcher : ["/login", "/register", "/addAddress"]
 }
 
