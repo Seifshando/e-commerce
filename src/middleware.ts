@@ -15,11 +15,7 @@ if(token){
     
 }
 else{
-    if(request.nextUrl.pathname === "/cart" || request.nextUrl.pathname === "/wishList"){
-        return NextResponse.redirect(new URL("/login", request.url))
-    }
     else{return NextResponse.next();}
-    
 }
 
 
