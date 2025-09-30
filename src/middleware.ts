@@ -14,9 +14,6 @@ if(token){
 
     
 }
-else{
-    else{return NextResponse.next();}
-}
 
 
 
