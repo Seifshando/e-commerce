@@ -6,6 +6,8 @@ import Navbar from "./_components/Navbar/page"
 import { Toaster } from "@/components/ui/sonner"
 import MySessionProvider from "@/mySessionProvider/MySessionProvider"
 import CartContextProvider from "@/context/CartContext"
+import { WishlistProvider } from "@/context/WishlistContext"
+// import { WishlistProvider } from "@/context/WishlistContext"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +37,12 @@ export default function RootLayout({
         {/* ✅ Session لازم يبقى أعلى حاجة */}
         <MySessionProvider>
           {/* ✅ CartContext ييجي بعده */}
+          <WishlistProvider>
+
+          {/* <WishlistProvider> */}
           <CartContextProvider>
+          {/* WishList Context يجي بعده*/}
+
             {/* ✅ Notifications */}
             <Toaster />
             {/* ✅ Navbar يفضل يكون هنا */}
@@ -43,6 +50,9 @@ export default function RootLayout({
             {/* ✅ باقي الصفحات */}
             {children}
           </CartContextProvider>
+          
+          </WishlistProvider>
+          {/* </WishlistProvider> */}
         </MySessionProvider>
       </body>
     </html>

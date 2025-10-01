@@ -251,8 +251,13 @@ return (
         </div>
 
         <Link href={`/checkout/${cartId}`}>
-        <Button className="bg-emerald-500 hover:bg-emerald-700 p-5 my-8 w-full text-lg">
+        <Button className="bg-emerald-500 hover:bg-emerald-700 p-5 mt-8 w-full text-lg">
             Checkout Now
+        </Button>
+        </Link>
+        <Link href={`/cashOrder/${cartId}`}>
+        <Button className="bg-emerald-500 hover:bg-emerald-700 p-5 my-4 w-full text-lg">
+            Cash Order
         </Button>
         </Link>
     </div>

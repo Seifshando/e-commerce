@@ -26,7 +26,7 @@ export default function SingleProduct({
   async function wishList() {
     const response = await AddWishList(currentProduct.id)
     if (response) {
-      if (isblack === false) {
+      if (!isblack) {
         setisblack(true)
         toast.success("Product Added To WishList Successfully", {
           position: "top-center",
@@ -44,36 +44,36 @@ export default function SingleProduct({
 
   return (
     <motion.div
-      className="w-1/5"
       key={currentProduct.id}
+      className="w-full sm:w-1/2 lg:w-1/4 xl:w-1/5" 
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      <div className="p-4">
-        <Card className="p-3 group/parent shadow-md hover:shadow-lg transition-all duration-300">
+      <div className="p-3">
+        <Card className="p-3 group/parent shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col justify-between">
           <Link href={`/products/${currentProduct.id}`}>
             <CardHeader>
               <Image
                 src={currentProduct.imageCover}
-                alt="image for current product"
+                alt={currentProduct.title}
                 width={500}
                 height={500}
-                className="rounded-xl"
+                className="rounded-xl w-full h-auto object-cover"
               />
-              <CardTitle className="text-green-600">
+              <CardTitle className="text-green-600 mt-2">
                 {currentProduct.category.name}
               </CardTitle>
-              <CardDescription className="font-bold text-black">
+              <CardDescription className="font-bold text-black line-clamp-1">
                 {currentProduct.title}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex justify-between items-center">
-                <span>{currentProduct.price} EGP</span>
-                <span>
+                <span className="font-semibold">{currentProduct.price} EGP</span>
+                <span className="flex items-center gap-1">
                   <i className="fa-solid fa-star text-[#FFD43B]"></i>
                   {currentProduct.ratingsAverage}
                 </span>
@@ -81,22 +81,17 @@ export default function SingleProduct({
             </CardContent>
           </Link>
 
-          {isblack ? (
-            <span>
-              <i
-                onClick={() => wishList()}
-                className="fa-solid fa-heart text-red-600 text-xl mt-4 cursor-pointer"
-              ></i>
-            </span>
-          ) : (
-            <span>
-              <i
-                onClick={() => wishList()}
-                className="fa-solid fa-heart text-xl mt-4 cursor-pointer"
-              ></i>
-            </span>
-          )}
+          {/* WishList Icon */}
+          <span className="mt-3">
+            <i
+              onClick={() => wishList()}
+              className={`fa-solid fa-heart text-xl cursor-pointer transition-colors ${
+                isblack ? "text-red-600" : "text-gray-400 hover:text-red-500"
+              }`}
+            ></i>
+          </span>
 
+          {/* Add to Cart */}
           <AddBtn id={currentProduct.id} />
         </Card>
       </div>

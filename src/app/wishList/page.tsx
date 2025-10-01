@@ -1,36 +1,21 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import GetWishList from "@/api/getWishList.api";
 import removeFromWishList from "@/api/removeFromWishList.api";
 import { toast } from "sonner";
-import { WishlistProduct } from "@/types/wishList.type";
 import Image from "next/image";
+import { useWishlist } from "@/context/WishlistContext";
 
 export default function WishlistPage() {
-  const [products, setProducts] = useState<WishlistProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { products, fetchWishlist, removeFromWishlist } = useWishlist();
   const [processingIds, setProcessingIds] = useState<string[]>([]);
 
-  // جلب wishlist
-  async function fetchWishlist() {
-    setLoading(true);
-    try {
-      const wishList: WishlistProduct[] = await GetWishList();
-      setProducts(wishList);
-    } catch (error) {
-      console.error("❌ Failed to fetch wishlist:", error);
-    }
-    setLoading(false);
-  }
-
-  // إزالة منتج
   async function toggleWishlist(id: string) {
     setProcessingIds((prev) => [...prev, id]);
     try {
       const response = await removeFromWishList(id);
       if (response) {
-        setProducts((prev) => prev.filter((p) => p.id !== id));
+        removeFromWishlist(id);
         toast.success("Product Removed Successfully", {
           position: "top-center",
           duration: 2000,
@@ -49,15 +34,7 @@ export default function WishlistPage() {
     fetchWishlist();
   }, []);
 
-  if (loading) {
-    return (
-      <h1 className="font-bold text-3xl text-center text-emerald-500 my-10">
-        Loading... <i className="fas fa-spinner fa-spin"></i>
-      </h1>
-    );
-  }
-
-  if (products.length === 0) {
+  if (!products || products.length === 0) {
     return (
       <h1 className="font-bold text-3xl text-center text-red-500 my-10">
         No Items In Wishlist
@@ -72,7 +49,6 @@ export default function WishlistPage() {
           key={product.id}
           className="bg-white shadow-md rounded-lg overflow-hidden relative group hover:shadow-xl transition-shadow duration-300"
         >
-          {/* صورة المنتج */}
           <Image
             src={product.imageCover}
             width={400}
@@ -81,7 +57,6 @@ export default function WishlistPage() {
             className="w-full h-64 object-cover"
           />
 
-          {/* أيقونة القلب */}
           <span
             onClick={() => toggleWishlist(product.id)}
             className={`absolute top-2 right-2 cursor-pointer text-2xl transition-colors duration-300 ${
@@ -91,13 +66,11 @@ export default function WishlistPage() {
             <i className="fas fa-heart"></i>
           </span>
 
-          {/* معلومات المنتج */}
           <div className="p-4">
             <h3 className="text-lg font-semibold">{product.title}</h3>
             <p className="text-gray-700 font-medium">${product.price}</p>
           </div>
 
-          {/* زر إزالة (اختياري لو عايز زر بجانب القلب) */}
           <button
             disabled={processingIds.includes(product.id)}
             onClick={() => toggleWishlist(product.id)}

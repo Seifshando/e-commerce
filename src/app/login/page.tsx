@@ -33,7 +33,7 @@ async function onSubmit(values: loginSchemaType) {
   })
   console.log(signin);
 
-  if(signin?.ok){
+  if(signin?.ok !== false){
     toast.success("Welcome To our Community ❤", {position: "top-center", duration: 2000});
     window.location.href = "/";
   }else{toast.error("Error Credential ❌", {position: "top-center", duration: 2000})};

@@ -16,7 +16,7 @@ export default function SingleBrand({ currentBrand }: Props) {
 return (
 <motion.div
     key={currentBrand._id}
-    className="w-1/5 p-4"
+    className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4"
     initial={{ opacity: 0, y: 40 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
@@ -31,8 +31,9 @@ return (
             alt={`image of ${currentBrand.name}`}
             width={500}
             height={500}
+            className="rounded-xl object-contain w-full h-40"
         />
-        <CardTitle className="text-green-600">
+        <CardTitle className="text-green-600 text-center mt-2">
             {currentBrand.name}
         </CardTitle>
         </CardHeader>
