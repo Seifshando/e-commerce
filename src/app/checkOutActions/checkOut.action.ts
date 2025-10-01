@@ -5,7 +5,7 @@ import { checkOutSchemaType } from "@/types/Product";
 
 export async function onlinePayment(
   cartId: string,
-  url: string = "/",
+  url: string = "/allorders",
   form: checkOutSchemaType
 ) {
   const token = await getMyToken();
