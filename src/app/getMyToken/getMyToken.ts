@@ -4,20 +4,15 @@ import { cookies } from "next/headers";
 
 
 export default async function getMyToken(){
-<<<<<<< HEAD
   const decodedToken =
   (await cookies()).get("next-auth.session-token")?.value ||
   (await cookies()).get("__Secure-next-auth.session-token")?.value;
 
   if(!decodedToken) return null;
 
-=======
-  const decodedToken = 
-    (await cookies()).get("next-auth.session-token")?.value || 
-    (await cookies()).get("__Secure-next-auth.session-token")?.value ;
 
-  if(!decodedToken) return null;
->>>>>>> 1ebd942839c65b9a61f81945d250d9b92a7372ff
+
+
 
   const token = await decode({token: decodedToken, secret: process.env.NEXTAUTH_SECRET!});
 

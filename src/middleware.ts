@@ -10,12 +10,6 @@ if(token){
         return NextResponse.redirect(new URL("/", request.url))
     }
     else{return NextResponse.next();}
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 1ebd942839c65b9a61f81945d250d9b92a7372ff
-    
 }
 
 
