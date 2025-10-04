@@ -12,28 +12,49 @@ import Image from "next/image"
 import { productType } from "@/types/Product.type"
 import AddBtn from "../AddBtn/AddBtn"
 import AddWishList from "@/api/AddwishList.api"
+import removeFromWishList from "@/api/removeFromWishList.api"   // ✅ استدعاء API الحذف
 import { toast } from "sonner"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { useWishlist } from "@/context/WishlistContext"
 
 export default function SingleProduct({
   currentProduct,
 }: {
   currentProduct: productType
 }) {
+  const { products, addToWishlist, removeFromWishlist } = useWishlist()
   const [isblack, setisblack] = useState(false)
 
+  // ⬇️ يحدد حالة القلب عند أول تحميل وأي تحديث للـ wishlist
+  useEffect(() => {
+    const exists = products.some((p) => p.id === currentProduct.id)
+    setisblack(exists)
+  }, [products, currentProduct.id])
+
   async function wishList() {
-    const response = await AddWishList(currentProduct.id)
-    if (response) {
-      if (!isblack) {
+    if (!isblack) {
+      // ✅ إضافة
+      const response = await AddWishList(currentProduct.id)
+      if (response) {
         setisblack(true)
+        addToWishlist({
+          id: currentProduct.id,
+          imageCover: currentProduct.imageCover,
+          title: currentProduct.title,
+          price: currentProduct.price,
+        })
         toast.success("Product Added To WishList Successfully", {
           position: "top-center",
           duration: 2000,
         })
-      } else {
+      }
+    } else {
+      // ✅ حذف
+      const response = await removeFromWishList(currentProduct.id)
+      if (response) {
         setisblack(false)
+        removeFromWishlist(currentProduct.id)
         toast.success("Product Removed From WishList Successfully", {
           position: "top-center",
           duration: 2000,
@@ -82,9 +103,9 @@ export default function SingleProduct({
           </Link>
 
           {/* WishList Icon */}
-          <span className="mt-3">
+          <span className="mt-3 flex items-center gap-2">
             <i
-              onClick={() => wishList()}
+              onClick={wishList}
               className={`fa-solid fa-heart text-xl cursor-pointer transition-colors ${
                 isblack ? "text-red-600" : "text-gray-400 hover:text-red-500"
               }`}

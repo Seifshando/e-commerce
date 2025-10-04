@@ -54,34 +54,23 @@ async function removeItem(id: string) {
 setProcessingIds((prev) => [...prev, id]);
 try {
     const response = await removeItemAction(id);
-    console.log(response);
-
     if (response?.status === "success") {
-    setProducts(response.data.products);
-    setTotal(response.data.totalCartPrice);
-    setnumberOfCartItem(
-        response.data.products.reduce(
-        (acc: number, p: cartProduct) => acc + p.count,
-        0
-        )
-    );
+    await fetchCart(); // ✅ إعادة تحميل من السيرفر
     toast.success("Product removed successfully", {
         position: "top-center",
+        duration: 2000,
     });
     } else {
     toast.error(response?.message || "Can't remove this product", {
         position: "top-center",
+        duration: 2000,
     });
     }
 } catch (error: unknown) {
     console.error("❌ Remove Item Error:", error);
-    if (error instanceof Error) {
-    toast.error(error.message, { position: "top-center" });
-    } else {
     toast.error("Something went wrong removing product", {
-        position: "top-center",
+    position: "top-center",
     });
-    }
 } finally {
     setProcessingIds((prev) => prev.filter((pid) => pid !== id));
 }
@@ -98,16 +87,8 @@ try {
     }
 
     const response = await updateCartQuantity(id, String(newCount));
-
     if (response?.status === "success") {
-    setProducts(response.data.products);
-    setTotal(response.data.totalCartPrice);
-    setnumberOfCartItem(
-        response.data.products.reduce(
-        (acc: number, p: cartProduct) => acc + p.count,
-        0
-        )
-    );
+    await fetchCart(); // ✅ إعادة تحميل
     toast.success("Quantity updated successfully", {
         position: "top-center",
     });
@@ -118,13 +99,9 @@ try {
     }
 } catch (error: unknown) {
     console.error("❌ Update Quantity Error:", error);
-    if (error instanceof Error) {
-    toast.error(error.message, { position: "top-center" });
-    } else {
     toast.error("Something went wrong updating quantity", {
-        position: "top-center",
+    position: "top-center",
     });
-    }
 } finally {
     setProcessingIds((prev) => prev.filter((pid) => pid !== id));
 }
@@ -134,11 +111,8 @@ try {
 async function clearCart() {
 try {
     const response = await clearCartItem();
-    console.log(response);
     if (response?.message === "success") {
-    setProducts([]);
-    setTotal(0);
-    setnumberOfCartItem(0);
+    await fetchCart(); // ✅ إعادة تحميل
     toast.success("Cart cleared successfully", {
         position: "top-center",
     });

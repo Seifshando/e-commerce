@@ -11,10 +11,6 @@ if(token){
     }
     else{return NextResponse.next();}
 }
-
-
-
-
 }
 export const config = {
 matcher : ["/login", "/register", "/addAddress"]

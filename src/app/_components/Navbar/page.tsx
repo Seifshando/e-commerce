@@ -4,13 +4,13 @@ import Link from "next/link";
 import React, { useContext, useState } from "react";
 import { CartContext, CartContextType } from "@/context/CartContext";
 import { signOut, useSession } from "next-auth/react";
-// import { useWishlist } from "@/context/WishlistContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 
 export default function Navbar() {
   const { numberOfCartItem } = useContext<CartContextType>(CartContext);
   const { data: session } = useSession();
-  // const { count } = useWishlist();
+  const { count } = useWishlist();
 
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,11 +49,11 @@ export default function Navbar() {
               <li><Link href="/">Home</Link></li>
               {session && <li><Link href="/wishList" className="relative">
               WishList
-              {/* {count > 0 && (
+              {count > 0 && (
                 <span className="size-6 absolute top-[-14px] end-[-14px] bg-red-500 text-white text-sm rounded-full flex justify-center items-center">
                   {count}
                 </span>
-              )} */}
+              )}
             </Link> </li>}
               {session && (
                 <li className="relative">
